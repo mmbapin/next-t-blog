@@ -23,10 +23,14 @@ const FilteredNewsPage = ({ params }) => {
 
 	let newsContent = <p>No news found for the selected period.</p>;
 
-	if (news) {
+	if (news && news.length > 0) {
 		newsContent = <NewsList news={news} />;
 	}
-	console.log(filter);
+
+if(selectedYear && !getAvailableNewsYears().includes(+selectedYear) || selectedMonth && !getAvailableNewsMonths(selectedYear).includes(+selectedMonth)) {
+	throw new Error("Invalid filter.");
+}
+
 
 	return (
 		<>
