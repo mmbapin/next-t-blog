@@ -1,18 +1,18 @@
-import React from 'react'
-import { DUMMY_NEWS } from '@/dummy-news';
+import React from 'react';
 import { notFound } from 'next/navigation';
+import { getNewsItem } from '@/lib/news'; // Adjust the import path as necessary
 
-const ImagePage = ({params}) => {
-  const newsItemSlug = params.newsSlug;
-  const newsItem = DUMMY_NEWS.find((item) => item.slug === newsItemSlug);
-    if(!newsItem){
-      notFound()
-    }
-  return (
-    <div className='fullscreen-image'>
-      <img src={`/images/news/${newsItem.image}`} alt={newsItem.title} />
-    </div>
-  )
-}
+const ImagePage = async ({ params }) => {
+	const newsItemSlug = params.newsSlug;
+	const newsItem = await getNewsItem(newsItemSlug);
+	if (!newsItem) {
+		notFound();
+	}
+	return (
+		<div className='fullscreen-image'>
+			<img src={`/images/news/${newsItem.image}`} alt={newsItem.title} />
+		</div>
+	);
+};
 
-export default ImagePage
+export default ImagePage;
